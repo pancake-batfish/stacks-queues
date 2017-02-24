@@ -12,18 +12,31 @@ class JobSimulation
       job_seekers.times do |worker|
         #establish initial Employed list (Stack)
         if worker < jobs_available
-          @workers.push("Worker #{worker}")
+          @workers.push("Worker #{worker + 1}")
         else
           #establish initial Waitlist (Queue)
-          @waiting.enqueue("Worker #{worker}")
+          @waiting.enqueue("Worker #{worker + 1}")
         end
       end
   end
 
   def cycle
     # roll a die
-    # fire (roll) number of people
-    # hire (roll) number of people
+    fired = rand(1..6)
+
+    fired.times do
+      # fire (roll) number of people
+      newly_fired = @workers.pop
+      puts "FIRE: #{newly_fired}"
+      @waiting.enqueue(newly_fired)
+    end
+
+    fired.times do
+      # hire (roll) number of people
+      newly_hired = @waiting.dequeue
+      puts "HIRE: #{newly_hired}"
+      @workers.push(newly_hired)
+    end
 
   end
 end
@@ -39,8 +52,9 @@ print "<enter to cycle>\n"
 
 # count = 0
 # until gets.chomp != ""
-#   puts "-------Cycle #{count+=1}-------"
-#   sim.cycle
-#   puts "Employed: #{sim.workers}"
-#   puts "Waitlist: #{sim.waiting}"
-# end
+10.times do |count|
+  puts "-------Cycle #{count+=1}-------"
+  sim.cycle
+  puts "Employed: #{sim.workers}"
+  puts "Waitlist: #{sim.waiting}"
+end

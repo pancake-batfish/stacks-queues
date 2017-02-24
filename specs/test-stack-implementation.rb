@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative '../lib/Stack'
+
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 describe "Test Stack Implementation" do
