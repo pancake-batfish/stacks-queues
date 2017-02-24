@@ -80,8 +80,24 @@ describe "Test Queue Implementation" do
     q.front.must_equal 22
   end
 
-  # Challege Tests you could write yourself:
-  # it "doesn't alter the size when you call front" do
+  it "doesn't alter the size when you call front" do
+    q = Queue.new
+    q.enqueue(40)
+    q.enqueue(22)
+    q.enqueue(-3)
+    q.size.must_equal 3
+    q.front
+    q.size.must_equal 3
+  end
+
   # it "raises an error if you try to dequeue from an empty Queue" do
+  #   q = Queue.new
+  #   proc {
+  #     q.dequeue}.must_raise
+  # end
+
+  # Challege Tests you could write yourself:
+
+
   # it "raises an error if you try to call front on an empty Queue" do
 end
